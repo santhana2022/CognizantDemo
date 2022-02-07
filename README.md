@@ -1,2 +1,2 @@
 # CognizantDemo
-Demo application to demonstrate mandatory skill-set requirement.
+Demo Application to demonstrate mandatory skill set requirement.

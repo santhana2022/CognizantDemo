@@ -1,0 +1,38 @@
+import com.cogni.demo.Libs
+
+apply plugin: 'com.android.application'
+apply from: "${rootProject.projectDir}/gradle/common_integration.gradle"
+
+android {
+
+    defaultConfig {
+        applicationId "com.cogni.demo.breakingbad"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation project(":data")
+    implementation project(":domain")
+
+    implementation Libs.AndroidX.coreKtx
+    implementation Libs.AndroidX.appcompat
+    implementation Libs.Google.material
+    implementation Libs.AndroidX.constraintlayout
+
+    implementation Libs.AndroidX.Lifecycle.livedata
+    implementation Libs.AndroidX.Lifecycle.viewmodel
+
+    implementation 'com.android.databinding:viewbinding:7.1.0'
+    implementation Libs.AndroidX.Navigation.navigationFragment
+    implementation Libs.AndroidX.Navigation.navigationUiKtx
+
+    implementation Libs.Others.coil
+}

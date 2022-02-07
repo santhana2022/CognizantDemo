@@ -1,0 +1,143 @@
+import com.cogni.demo.ConfigData
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-parcelize'
+
+android {
+
+    compileSdkVersion ConfigData.compileSdkVersion
+    // If you're using Android plugin for Gradle 3.0.0 or higher, your project automatically uses a default version of the build tools
+    // that the plugin specifies. To use a different version of the build tools, specify it using buildToolsVersion in your module's build.gradle
+    //buildToolVersion "$ANDROID_BUILD_TOOL_VERSION"
+
+    defaultConfig {
+        minSdkVersion ConfigData.minSdkVersion
+        targetSdkVersion ConfigData.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // The following argument makes the Android Test Orchestrator run its
+        // "pm clear" command after each test invocation. This command ensures
+        // that the app's state is completely cleared between tests.
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+    }
+
+    buildTypes {
+
+        release {
+
+        }
+
+        debug {
+
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+        // TODO : For Compose Integration
+         // compose true
+    }
+
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+
+    lintOptions {
+        //disable 'MissingTranslation'
+        abortOnError false
+
+    }
+
+    testOptions {
+        animationsDisabled = true
+        unitTests {
+            includeAndroidResources = true
+            all {
+                setIgnoreFailures(true)
+            }
+        }
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+// TODO : For Compose Integration
+    kotlinOptions {
+        jvmTarget = "1.8"
+        // https://stackoverflow.com/questions/53964192/jvmdefault-and-how-add-compiler-option
+        freeCompilerArgs = ['-Xjvm-default=compatibility']
+    }
+
+    composeOptions {
+        // kotlinCompilerVersion '1.5.31'
+        // kotlinCompilerExtensionVersion '1.0.5'
+
+        // kotlinCompilerExtensionVersion Libs.AndroidX.Compose.version
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Room
+    implementation 'androidx.room:room-ktx:2.4.1'
+    // api "androidx.room:room-runtime:2.4.1"
+    kapt "androidx.room:room-compiler:2.4.1"
+
+    // Hilt dependencies
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+
+    // TODO : For Compose Integration
+    // Compose runtime (Note : Must be placed here to apply this version in all the modules)
+    // api Libs.AndroidX.Compose.runtime
+
+    // optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
+    // api "androidx.lifecycle:lifecycle-process:$ANDROIDX_LIFECYCLE_EXT_VERSION"
+
+    //-------------------------- BASIC UNIT TESTING --------------------------//
+    // Required -- JUnit 4 framework
+    testImplementation "junit:junit:$TEST_JUNIT_VERSION"
+
+    //-------------------------- INSTRUMENTATION --------------------------//
+    // Testing-only dependencies
+    androidTestImplementation "androidx.test:runner:$TEST_ANDROIDX_TEST_RUNNER"
+    androidTestImplementation "androidx.test:rules:$TEST_ANDROIDX_TEST_RULE"
+    androidTestImplementation "androidx.test:core:$TEST_ANDROIDX_CORE"
+    androidTestImplementation "androidx.test.ext:junit:$TEST_ANDROIDX_JUNIT_EXT_VERSION"
+
+    // Optional -- UI testing with Espresso
+    androidTestImplementation "androidx.test.espresso:espresso-core:$TEST_ANDROID_ESPRESSO_CORE", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$TEST_ANDROID_ESPRESSO_CORE", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
+
+    // Optional -- Hamcrest library
+    androidTestImplementation "org.hamcrest:hamcrest-library:$TEST_HAMCREST"
+    // Optional -- UI testing with UI Automator
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:$TEST_ANDROIDX_UI_AUTOMATOR"
+
+    // Robo-Electric
+    testImplementation "org.mockito:mockito-core:$TEST_MOCKITO_VERSION"
+    // testImplementation "org.robolectric:shadows-supportv4:TEST_ROBO_ELECTRIC_VERSION"
+    testImplementation "org.robolectric:robolectric:$TEST_ROBO_ELECTRIC_VERSION"
+    testImplementation "com.google.truth:truth:$TEST_GOOGLE_TRUTH_VERSION"
+
+    // Power-Mock
+    testImplementation "org.powermock:powermock-module-junit4:$TEST_POWERMOCK_JUNIT4_VERSION"
+    testImplementation "org.powermock:powermock-api-mockito2:$TEST_POWERMOCK_API_MOCKITO_VERSION"
+    //-------------------------- INSTRUMENTATION --------------------------//
+}

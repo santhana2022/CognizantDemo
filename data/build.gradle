@@ -1,0 +1,15 @@
+import com.cogni.demo.Libs
+
+apply plugin: 'com.android.library'
+apply from: "${rootProject.projectDir}/gradle/common_integration.gradle"
+
+android {
+    dependencies {
+        implementation project(":domain")
+
+        // OkHttp
+        api Libs.Others.okhttp
+        api Libs.Others.retrofit
+        api Libs.Others.retrofitGsonConverter
+    }
+}

@@ -1,0 +1,43 @@
+API Documentation: https://breakingbadapi.com/documentation
+
+Tasks:
+1.  Import the project into Android Studio
+
+2.  Compile and run the app; fix any errors in the process
+
+3.  Detail page
+
+4.  Make any changes, additions, or fixes to the app that you want
+
+3.  Create a character detail page.  Access the page by clicking on the specific character in the
+    list view.  Include the image on the detail page and any 3 or more attributes.
+
+5.  Choose any one of the task below
+    A.  Add a new field in the list view below the characters nickname. Make this field show the
+        characters current status.  Add a colored circle next to the name:
+                Green = Alive
+                Red = Deceased
+                Yellow = <Any other status>
+
+    B.  Add a button to each list view character with the label "quote".  When the button is hit,
+        display a quote from the character in a dialog box.  If there is no quote for the
+        character display a message informing of this.
+
+    C.  Add a search feature for the list view, add a search icon to the action bar, allow the
+        user to type in a username and filter the list as needed.
+
+    D.  Add a "death count" for each user in the list view.  This field should be the number of
+        deaths this character was responsible for.
+
+    E. Write unit tests for the application
+
+    F. Implement pagination in the list view.
+
+    G. On the newly created Character Detail page, add a random quote from the character.
+
+
+
+
+
+
+
